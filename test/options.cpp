@@ -1,8 +1,11 @@
-#include "catch.hpp"
-
-#include <initializer_list>
-
 #include "cxxopts.hpp"
+
+#include <array>
+#include <initializer_list>
+#include <memory>
+#include <vector>
+
+#include "catch.hpp"
 
 class Argv {
   public:
@@ -773,4 +776,32 @@ TEST_CASE("Option add with add_option(string, Option)", "[options]") {
   CHECK(result.count("test") == 1);
   CHECK(result["aggregate"].as<int>() == 4);
   CHECK(result["test"].as<int>() == 5);
+}
+
+TEST_CASE("Constness", "[const]") {
+  cxxopts::Options options("Testing constness", "Test that constness compiles");
+
+  SECTION("non-const pointer") {
+    char** argv = nullptr;
+    int argc = 0;
+    options.parse(argc, argv);
+  }
+
+  SECTION("const pointer") {
+    char const* argv[2] = {
+      "program",
+      "option",
+    };
+    int argc = 2;
+    options.parse(argc, argv);
+  }
+
+  SECTION("std::array") {
+    std::array<const char*, 2> argv = {{
+      "program",
+      "option"
+    }};
+    int argc = 2;
+    options.parse(argc, argv.data());
+  }
 }

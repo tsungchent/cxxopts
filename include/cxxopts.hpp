@@ -1251,7 +1251,7 @@ namespace cxxopts
     private:
 
     void
-    parse(int& argc, const char**& argv);
+    parse(int& argc, const char** argv);
 
     void
     add_to_option(const std::string& option, const std::string& arg);
@@ -1361,7 +1361,12 @@ namespace cxxopts
     }
 
     ParseResult
-    parse(int& argc, const char**& argv);
+    parse(int& argc, const char** argv);
+
+    ParseResult parse(int& argc, char** argv)
+    {
+      return parse(argc, const_cast<const char**>(argv));
+    }
 
     OptionAdder
     add_options(std::string group = "");
@@ -1835,7 +1840,7 @@ Options::parse_positional(std::initializer_list<std::string> options)
 
 inline
 ParseResult
-Options::parse(int& argc, const char**& argv)
+Options::parse(int& argc, const char** argv)
 {
   ParseResult result(m_options, m_positional, m_allow_unrecognised, argc, argv);
   return result;
@@ -1843,7 +1848,7 @@ Options::parse(int& argc, const char**& argv)
 
 inline
 void
-ParseResult::parse(int& argc, const char**& argv)
+ParseResult::parse(int& argc, const char** argv)
 {
   int current = 1;
 
@@ -1851,7 +1856,7 @@ ParseResult::parse(int& argc, const char**& argv)
 
   bool consume_remaining = false;
 
-  while (current != argc)
+  while (current < argc)
   {
     if (strcmp(argv[current], "--") == 0)
     {
