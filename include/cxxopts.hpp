@@ -70,7 +70,7 @@ THE SOFTWARE.
 #define CXXOPTS__VERSION_MINOR 0
 #define CXXOPTS__VERSION_PATCH 0
 
-#if __GNUC__ < 10 || (__GNUC__ == 10 && __GNUC_MINOR__ < 1)
+#if (__GNUC__ < 10 || (__GNUC__ == 10 && __GNUC_MINOR__ < 1)) && __GNUC__ >= 6
   #define CXXOPTS_NULL_DEREF_IGNORE
 #endif
 
