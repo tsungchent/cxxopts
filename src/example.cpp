@@ -103,18 +103,18 @@ parse(int argc, const char* argv[])
 
     if (apple)
     {
-      std::cout << "Saw option ‘a’ " << result.count("a") << " times " <<
+      std::cout << "Saw option 'a' " << result.count("a") << " times " <<
         std::endl;
     }
 
     if (result.count("b"))
     {
-      std::cout << "Saw option ‘b’" << std::endl;
+      std::cout << "Saw option 'b'" << std::endl;
     }
 
     if (result.count("char"))
     {
-      std::cout << "Saw a character ‘" << result["char"].as<char>() << "’" << std::endl;
+      std::cout << "Saw a character '" << result["char"].as<char>() << "'" << std::endl;
     }
 
     if (result.count("f"))
